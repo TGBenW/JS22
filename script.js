@@ -1,5 +1,3 @@
-<<<<<<< Updated upstream
-=======
 let title = "TourAgency";
 let screens = "Simple, Complex, Interactive";
 let screenPrice = 1200;
@@ -21,4 +19,3 @@ console.log(screens.toLowerCase());
 console.log(screens.split(", "));
 
 console.log(fullPrice * (rollback / 100));
->>>>>>> Stashed changes
