@@ -1,21 +1,22 @@
 "use strict";
 
-const title = document.getElementsByTagName('h1')[0];
-const buttons = document.getElementsByClassName('handler_btn');
-const plusBtn = document.querySelector('.screen-btn');
-const percentElem = document.querySelectorAll('.other-items.percent');
-const numberElem = document.querySelectorAll('.other-items.number');
-const rangeElem = document.querySelector('.rollback .range-value');
-const totalInputArr = [{}];
+const title = document.getElementsByTagName('h1')[0]; //1
+const calcResetButtons = document.getElementsByClassName('handler_btn'); //2
+const calcButton = calcResetButtons[0];
+const resetButton = calcResetButtons[1];
+const plusBtn = document.querySelector('.screen-btn'); //3
+const percentElem = document.querySelectorAll('.other-items.percent'); //4
+const numberElem = document.querySelectorAll('.other-items.number'); 
+const inputElem = document.querySelector('.rollback > .main-controls__range > input') //5
+const rangeElem = document.querySelector('.rollback .range-value'); //6
+const totalInput = document.getElementsByClassName('total-input'); //7
+const totalPrice = totalInput[0];
+const totalCount = totalInput[1];
+const totalOther = totalInput[2];
+const totalAllPrice = totalInput[3];
+const totalRollback = totalInput[4];
 
-const getTotalInputArr = function () {
-  for (let i = 0; i < document.getElementsByClassName('total-input').length; i++) {
-    totalInputArr[i] = document.getElementsByClassName('total-input')[i];
-  }
-};
-getTotalInputArr();
-
-let screenBlocks = document.querySelectorAll('.screen');
+let screenBlocks = document.querySelectorAll('.screen'); //8
 
 
 const appData = {
