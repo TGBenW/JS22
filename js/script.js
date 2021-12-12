@@ -157,10 +157,6 @@ const appData = {
 
     screens[screens.length - 1].after(cloneScreen);
   },
-
-  splitString: function (stringToSplit, separator) {
-    return stringToSplit.split(separator);
-  },
 };
 
 window.addEventListener("load", appData.loadCheck);
