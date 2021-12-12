@@ -30,6 +30,16 @@ const appData = {
   servicesPercent: {},
   servicesNumber: {},
   isError: false,
+
+  counterScreens: function () {
+    const screensInput = document.querySelectorAll(".screen input");
+    let count = 0;
+    screensInput.forEach((item) => {
+      count += +item.value;
+    });
+    return count;
+  },
+
   checkValues: function () {
     appData.isError = false;
 
@@ -89,7 +99,7 @@ const appData = {
 
   showResult: function () {
     total.value = appData.screenPrice;
-    totalCount.value = appData.screens.length;
+    totalCount.value = appData.counterScreens();
     totalCountOther.value = appData.servicePricesPercent + appData.servicePricesNumber;
     fullTotalPrice.value = appData.fullPrice;
     totalCountRollback.value = appData.servicePercentPrice;
