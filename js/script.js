@@ -6,8 +6,8 @@ const resetBtn = document.getElementsByClassName("handler_btn")[1];
 const plusBtn = document.querySelector(".screen-btn"); //3
 const otherItemsPercent = document.querySelectorAll(".other-items.percent"); //4
 const otherItemsNumber = document.querySelectorAll(".other-items.number");
-const inputElem = document.querySelector(".rollback > .main-controls__range > input"); //5
-const rangeElem = document.querySelector(".rollback .range-value"); //6
+const rangeInput = document.querySelector(".rollback > .main-controls__range > input"); //5
+const rangeSpan = document.querySelector(".rollback .range-value"); //6
 
 const total = document.getElementsByClassName("total-input")[0]; //7
 const totalCount = document.getElementsByClassName("total-input")[1];
@@ -20,20 +20,50 @@ let screens = document.querySelectorAll(".screen"); //8
 const appData = {
   title: "",
   screens: [],
+  screensCount: 0,
   screenPrice: 0,
   adaptive: true,
-  rollback: 10,
+  rollback: 0,
   servicePricesPercent: 0,
   servicePricesNumber: 0,
   fullPrice: 0,
   servicePercentPrice: 0,
   servicesPercent: {},
   servicesNumber: {},
+  isError: false,
+  checkValues: function () {
+    appData.isError = false;
+
+    screens = document.querySelectorAll(".screen");
+
+    screens.forEach((screen) => {
+      const select = screen.querySelector("select");
+      const input = screen.querySelector("input[type=text]");
+
+      if (select.value === "" || input.value.trim() === "" || parseInt(input.value) === 0) {
+        appData.isError = true;
+      }
+    });
+
+    if (!appData.isError) {
+      appData.start();
+    } else {
+      alert("Пожалуйста заполните типы и количество экранов верно!");
+    }
+  },
+
+  loadCheck: function () {
+    rangeInput.value = 0;
+    appData.loggerRange();
+  },
+
   init: function () {
     appData.addTitle();
 
-    startBtn.addEventListener("click", appData.start);
+    startBtn.addEventListener("click", appData.checkValues);
     plusBtn.addEventListener("click", appData.addScreenBlock);
+    //rangeInput.addEventListener("mouseover", appData.loggerRange);
+    rangeInput.addEventListener("mousemove", appData.loggerRange);
   },
 
   addTitle: function () {
@@ -41,6 +71,7 @@ const appData = {
   },
 
   start: function () {
+    window.addEventListener("load", appData.loadCheck);
     appData.addScreens();
     appData.addServices();
     appData.addPrices();
@@ -51,10 +82,19 @@ const appData = {
     appData.showResult();
   },
 
+  loggerRange: function () {
+    //circle.style.height = rangeInput.value + "%";
+    //circle.style.width = rangeInput.value + "%";
+    appData.rollback = rangeInput.value;
+    rangeSpan.textContent = rangeInput.value + "%";
+    //console.log("!!!");
+  },
+
   showResult: function () {
     total.value = appData.screenPrice;
     totalCountOther.value = appData.servicePricesPercent + appData.servicePricesNumber;
     fullTotalPrice.value = appData.fullPrice;
+    totalCountRollback.value = appData.servicePercentPrice;
   },
 
   addScreens: function () {
@@ -115,6 +155,8 @@ const appData = {
 
     appData.fullPrice =
       +appData.screenPrice + appData.servicePricesPercent + appData.servicePricesNumber;
+
+    appData.servicePercentPrice = appData.fullPrice - appData.fullPrice * (appData.rollback / 100);
   },
 
   getRollbackMessage: function (price) {
@@ -129,9 +171,9 @@ const appData = {
     }
   },
 
-  getServicePercentPrice: function () {
-    appData.servicePercentPrice = appData.fullPrice - appData.fullPrice * (appData.rollback / 100);
-  },
+  //getServicePercentPrice: function () {
+  //  appData.servicePercentPrice = appData.fullPrice - appData.fullPrice * (appData.rollback / 100);
+  //},
 
   splitString: function (stringToSplit, separator) {
     return stringToSplit.split(separator);
