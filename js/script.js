@@ -1,25 +1,24 @@
-"use strict";
+'use strict';
 
-const title = document.getElementsByTagName("h1")[0]; //1
-const startBtn = document.getElementsByClassName("handler_btn")[0]; //2
-const resetBtn = document.getElementsByClassName("handler_btn")[1];
-const plusBtn = document.querySelector(".screen-btn"); //3
-const otherItemsPercent = document.querySelectorAll(".other-items.percent"); //4
-const otherItemsNumber = document.querySelectorAll(".other-items.number");
-const rangeInput = document.querySelector(".rollback > .main-controls__range > input"); //5
-const rangeSpan = document.querySelector(".rollback .range-value"); //6
+const title = document.getElementsByTagName('h1')[0]; //1
+const startBtn = document.getElementsByClassName('handler_btn')[0]; //2
+const resetBtn = document.getElementsByClassName('handler_btn')[1];
+const plusBtn = document.querySelector('.screen-btn'); //3
+const otherItemsPercent = document.querySelectorAll('.other-items.percent'); //4
+const otherItemsNumber = document.querySelectorAll('.other-items.number');
+const rangeInput = document.querySelector('.rollback > .main-controls__range > input'); //5
+const rangeSpan = document.querySelector('.rollback .range-value'); //6
 
-const total = document.getElementsByClassName("total-input")[0]; //7
-const totalCount = document.getElementsByClassName("total-input")[1];
-const totalCountOther = document.getElementsByClassName("total-input")[2];
-const fullTotalPrice = document.getElementsByClassName("total-input")[3];
-const totalCountRollback = document.getElementsByClassName("total-input")[4];
+const total = document.getElementsByClassName('total-input')[0]; //7
+const totalCount = document.getElementsByClassName('total-input')[1];
+const totalCountOther = document.getElementsByClassName('total-input')[2];
+const fullTotalPrice = document.getElementsByClassName('total-input')[3];
+const totalCountRollback = document.getElementsByClassName('total-input')[4];
 
-let screens = document.querySelectorAll(".screen"); //8
-
+let screens = document.querySelectorAll('.screen'); //8
 
 const appData = {
-  title: "",
+  title: '',
   screens: [],
   screenPrice: 0,
   adaptive: true,
@@ -33,7 +32,7 @@ const appData = {
   isError: false,
 
   counterScreens: function () {
-    const screensInput = document.querySelectorAll(".screen input");
+    const screensInput = document.querySelectorAll('.screen input');
     let count = 0;
     screensInput.forEach((item) => {
       count += +item.value;
@@ -44,13 +43,13 @@ const appData = {
   checkValues: function () {
     appData.isError = false;
 
-    screens = document.querySelectorAll(".screen");
+    screens = document.querySelectorAll('.screen');
 
     screens.forEach((screen) => {
-      const select = screen.querySelector("select");
-      const input = screen.querySelector("input[type=text]");
+      const select = screen.querySelector('select');
+      const input = screen.querySelector('input[type=text]');
 
-      if (select.value === "" || input.value.trim() === "" || parseInt(input.value) === 0) {
+      if (select.value === '' || input.value.trim() === '' || parseInt(input.value) === 0) {
         appData.isError = true;
       }
     });
@@ -58,7 +57,7 @@ const appData = {
     if (!appData.isError) {
       appData.start();
     } else {
-      alert("Пожалуйста заполните типы и количество экранов верно!");
+      alert('Пожалуйста заполните типы и количество экранов верно!');
     }
   },
 
@@ -76,9 +75,9 @@ const appData = {
   init: function () {
     appData.addTitle();
 
-    startBtn.addEventListener("click", appData.checkValues);
-    plusBtn.addEventListener("click", appData.addScreenBlock);
-    rangeInput.addEventListener("mousemove", appData.loggerRange);
+    startBtn.addEventListener('click', appData.checkValues);
+    plusBtn.addEventListener('click', appData.addScreenBlock);
+    rangeInput.addEventListener('mousemove', appData.loggerRange);
   },
 
   addTitle: function () {
@@ -95,7 +94,7 @@ const appData = {
 
   loggerRange: function () {
     appData.rollback = rangeInput.value;
-    rangeSpan.textContent = rangeInput.value + "%";
+    rangeSpan.textContent = rangeInput.value + '%';
   },
 
   showResult: function () {
@@ -107,11 +106,11 @@ const appData = {
   },
 
   addScreens: function () {
-    screens = document.querySelectorAll(".screen");
+    screens = document.querySelectorAll('.screen');
 
-    screens.forEach(function (screen, index) {
-      const select = screen.querySelector("select");
-      const input = screen.querySelector("input");
+    screens.forEach((screen, index) => {
+      const select = screen.querySelector('select');
+      const input = screen.querySelector('input');
       const selectName = select.options[select.selectedIndex].textContent;
 
       appData.screens.push({
@@ -123,20 +122,20 @@ const appData = {
   },
 
   addServices: function () {
-    otherItemsPercent.forEach(function (item) {
-      const check = item.querySelector("input[type=checkbox]");
-      const label = item.querySelector("label");
-      const input = item.querySelector("input[type=text");
+    otherItemsPercent.forEach((item) => {
+      const check = item.querySelector('input[type=checkbox]');
+      const label = item.querySelector('label');
+      const input = item.querySelector('input[type=text');
 
       if (check.checked) {
         appData.servicesPercent[label.textContent] = +input.value;
       }
     });
 
-    otherItemsNumber.forEach(function (item) {
-      const check = item.querySelector("input[type=checkbox]");
-      const label = item.querySelector("label");
-      const input = item.querySelector("input[type=text");
+    otherItemsNumber.forEach((item) => {
+      const check = item.querySelector('input[type=checkbox]');
+      const label = item.querySelector('label');
+      const input = item.querySelector('input[type=text');
 
       if (check.checked) {
         appData.servicesNumber[label.textContent] = +input.value;
@@ -163,11 +162,11 @@ const appData = {
   },
 
   addScreenBlock: function () {
-    const screens = document.querySelectorAll(".screen");
+    const screens = document.querySelectorAll('.screen');
     const cloneScreen = screens[0].cloneNode(true);
 
     screens[screens.length - 1].after(cloneScreen);
   },
 };
 
-window.addEventListener("load", appData.loadCheck);
+window.addEventListener('load', appData.loadCheck);
