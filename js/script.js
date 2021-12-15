@@ -17,6 +17,7 @@ const totalCountRollback = document.getElementsByClassName("total-input")[4];
 
 let screens = document.querySelectorAll(".screen"); //8
 
+
 const appData = {
   title: "",
   screens: [],
