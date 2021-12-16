@@ -83,7 +83,7 @@ const appData = {
 
     startBtn.addEventListener('click', this.checkValues.bind(this));
     plusBtn.addEventListener('click', this.addScreenBlock);
-    rangeInput.addEventListener('mousemove', this.loggerRange);
+    rangeInput.addEventListener('input', this.loggerRange);
     resetBtn.addEventListener('click', () => {
       this.addUnblock();
       this.resetValue();
@@ -126,7 +126,7 @@ const appData = {
     fullTotalPrice.value = this.fullPrice;
     totalCountRollback.value = this.servicePercentPrice;
     if (this.servicePercentPrice >= 0) {
-      rangeInput.addEventListener('mousemove', this.rollbackPriceLive);
+      rangeInput.addEventListener('input', this.rollbackPriceLive);
     }
   },
 
@@ -304,4 +304,5 @@ const appData = {
   },
 };
 
-window.addEventListener('load', appData.init());
+//window.addEventListener('load', appData.init());
+appData.init();
