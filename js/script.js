@@ -285,6 +285,7 @@ const appData = {
     this.servicePercentPrice = 0;
     this.cmsPercent = 0;
     this.screenPrice = 0;
+    this.screens = [];
   },
 
   rollbackPriceLive: function () {
