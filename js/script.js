@@ -83,6 +83,9 @@ const appData = {
 
     startBtn.addEventListener('click', this.checkValues.bind(this));
     plusBtn.addEventListener('click', this.addScreenBlock);
+    if (this.servicePercentPrice >= 0) {
+      rangeInput.addEventListener('input', this.rollbackPriceLive);
+    }
     rangeInput.addEventListener('input', this.loggerRange);
     resetBtn.addEventListener('click', () => {
       this.addUnblock();
@@ -125,9 +128,14 @@ const appData = {
     totalCountOther.value = this.servicePricesPercent + this.servicePricesNumber;
     fullTotalPrice.value = this.fullPrice;
     totalCountRollback.value = this.servicePercentPrice;
-    if (this.servicePercentPrice >= 0) {
-      rangeInput.addEventListener('input', this.rollbackPriceLive);
-    }
+  },
+
+  rollbackPriceLive: function () {
+    appData.loggerRange();
+    appData.servicePercentPrice = parseInt(
+      appData.fullPrice - appData.fullPrice * (appData.rollback / 100)
+    );
+    appData.showResult();
   },
 
   addScreens: function () {
@@ -286,14 +294,6 @@ const appData = {
     this.cmsPercent = 0;
     this.screenPrice = 0;
     this.screens = [];
-  },
-
-  rollbackPriceLive: function () {
-    appData.loggerRange();
-    appData.servicePercentPrice = parseInt(
-      appData.fullPrice - appData.fullPrice * (appData.rollback / 100)
-    );
-    appData.showResult();
   },
 
   addScreenBlock: function () {
