@@ -10,7 +10,7 @@ const rangeInput = document.querySelector('.rollback > .main-controls__range > i
 const rangeSpan = document.querySelector('.rollback .range-value');
 
 const total = document.getElementsByClassName('total-input')[0];
-const totalCount = document.getElementsByClassName('total-input')[1];
+const totalCountScreens = document.getElementsByClassName('total-input')[1];
 const totalCountOther = document.getElementsByClassName('total-input')[2];
 const fullTotalPrice = document.getElementsByClassName('total-input')[3];
 const totalCountRollback = document.getElementsByClassName('total-input')[4];
@@ -71,7 +71,7 @@ const appData = {
     rangeInput.value = 0;
     this.loggerRange();
     total.value = 0;
-    totalCount.value = 0;
+    totalCountScreens.value = 0;
     totalCountOther.value = 0;
     fullTotalPrice.value = 0;
     totalCountRollback.value = 0;
@@ -84,7 +84,7 @@ const appData = {
     startBtn.addEventListener('click', this.checkValues.bind(this));
     plusBtn.addEventListener('click', this.addScreenBlock);
     if (this.servicePercentPrice >= 0) {
-      rangeInput.addEventListener('input', this.rollbackPriceLive);
+      rangeInput.addEventListener('input', this.rollbackPriceLive.bind(this));
     }
     rangeInput.addEventListener('input', this.loggerRange);
     resetBtn.addEventListener('click', () => {
@@ -124,18 +124,17 @@ const appData = {
 
   showResult: function () {
     total.value = this.screenPrice;
-    totalCount.value = this.counterScreens();
+    totalCountScreens.value = this.counterScreens();
     totalCountOther.value = this.servicePricesPercent + this.servicePricesNumber;
     fullTotalPrice.value = this.fullPrice;
     totalCountRollback.value = this.servicePercentPrice;
   },
 
   rollbackPriceLive: function () {
-    appData.loggerRange();
-    appData.servicePercentPrice = parseInt(
-      appData.fullPrice - appData.fullPrice * (appData.rollback / 100)
-    );
-    appData.showResult();
+    this.loggerRange();
+    this.servicePercentPrice = parseInt(this.fullPrice - this.fullPrice * (this.rollback / 100));
+    totalCountRollback.value = this.servicePercentPrice;
+    //this.showResult();
   },
 
   addScreens: function () {
@@ -279,7 +278,7 @@ const appData = {
 
   resetValue: function () {
     total.value = '0';
-    totalCount.value = '0';
+    totalCountScreens.value = '0';
     totalCountOther.value = '0';
     fullTotalPrice.value = '0';
     totalCountRollback.value = '0';
@@ -304,5 +303,4 @@ const appData = {
   },
 };
 
-//window.addEventListener('load', appData.init());
 appData.init();
